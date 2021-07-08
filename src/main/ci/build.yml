@@ -1,0 +1,21 @@
+resources:
+- name: spring-boot-docker
+  type: git
+  source:
+    uri: https://github.com/wtedongmo/spring-boot-docker.git
+- name: spring-boot-docker-image
+  type: docker-image
+  source:
+    email: wtedongmo@yahoo.fr
+    username: wilfriedbt
+    password: {{docker-hub-password}}
+    repository: wilfriedbt/spring-boot-docker
+
+jobs:
+- name: main
+  plan:
+  - task: build
+    file: spring-boot-docker/src/main/ci/build.yml
+  - put: spring-boot-docker-image
+    params:
+      build: spring-boot-docker
