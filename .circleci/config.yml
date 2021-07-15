@@ -7,9 +7,17 @@ workflows:
   build-deploy:
     jobs:
     - unit-test
+      filters:
+        branches:
+          only: master
+          ignore: main
     - publish-docker:
         requires:
-        - unit-test
+          - unit-test
+        filters:
+          branches:
+            only: master
+            ignore: main
 
 jobs:
   unit-test:

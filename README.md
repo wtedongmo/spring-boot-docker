@@ -135,6 +135,7 @@
 * You can login with your GitHub account. 
 * Follow this [link](https://circleci.com/blog/dockerizing-java-apps-with-circleci-and-jib/) 
 to see step by step how to setup your CI/CD app by pushing docker image on docker hub.
+* To see more config pipeline properties, [cliek here](https://circleci.com/docs/2.0/workflows/?section=pipelines)
 
 
 ## Reference Documentation
@@ -145,6 +146,7 @@ For further reference, please consider the following sections:
 * [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.5.2/maven-plugin/reference/html/#build-image)
 * Spring Boot with Docker [Getting started Spring](https://spring.io/guides/gs/spring-boot-docker/)  
 * Spring Boot with Docker [Tipicals](https://spring.io/guides/topicals/spring-boot-docker)  
+* https://www.geekyhacker.com/2019/07/14/how-to-use-spotify-docker-maven-plugin/
 * https://www.linkedin.com/pulse/simple-guide-devops-cicd-jenkins-pipelines-docker-ramos-da-silva/
 * https://technology.riotgames.com/news/putting-jenkins-docker-container
 * https://www.jenkins.io/doc/book/installing/docker/
