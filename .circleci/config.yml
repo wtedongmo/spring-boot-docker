@@ -45,7 +45,8 @@ jobs:
         - spring-boot-docker
     - run: mvn dependency:go-offline
     - run: cp .mvn/wrapper/settings.xml ~/.m2/settings.xml
-    - run: echo "<settingsSecurity><master>${maven_security_master}</master></settingsSecurity>" > ~/.m2/settings-security.xml
+    - run: cp .mvn/wrapper/settings-security.xml ~/.m2/settings-security.xml
+    #- run: echo "<settingsSecurity><master>${maven_security_master}</master></settingsSecurity>" > ~/.m2/settings-security.xml
     - run:
         name: Publish Docker image with Jib
         command: mvn compile jib:build -DskipTests
