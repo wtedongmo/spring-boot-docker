@@ -1,0 +1,61 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - unit-test:
+        filters:
+          branches:
+            only: master
+            ignore: main
+      - publish-docker:
+          requires:
+            - unit-test
+          filters:
+            branches:
+              only: master
+              ignore: main
+
+jobs:
+  unit-test:
+    docker:
+    - image: circleci/openjdk:8-jdk
+    working_directory: ~/spring-boot-docker
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - spring-boot-docker-{{ checksum "pom.xml" }}
+        - spring-boot-docker
+    - run: mvn dependency:go-offline
+    - run:
+        name: Build and unit test
+        command: mvn test
+    - save_cache:
+        paths:
+        - ~/.m2
+        key: spring-boot-docker-{{ checksum "pom.xml" }}
+    - store_test_results:
+        path: target/surefire-reports
+
+  publish-docker:
+    docker:
+    - image: circleci/openjdk:8-jdk-browsers
+    working_directory: ~/spring-boot-docker
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - spring-boot-docker-{{ checksum "pom.xml" }}
+        - spring-boot-docker
+    - run: mvn dependency:go-offline
+    - run: cp .mvn/wrapper/settings.xml ~/.m2/settings.xml
+    - run: cp .mvn/wrapper/settings-security.xml ~/.m2/settings-security.xml
+    #- run: echo "<settingsSecurity><master>${maven_security_master}</master></settingsSecurity>" > ~/.m2/settings-security.xml
+    - run:
+        name: Publish Docker image with Jib
+        command: mvn compile jib:build -DskipTests
+
