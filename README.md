@@ -61,6 +61,28 @@
 + To build the docker image  
 > mvn com.spotify:dockerfile-maven-plugin:build 
 
+* Spotify can be use build image and push to docker hub. See the new pom.xml plugin. 
+    * Obviously, the last step is to create a settings.xml under ~/.m2 path and add the Docker Hub credentials. 
+    * Here, I add an example that you just need to replace username, password, and email. 
+    > <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                                https://maven.apache.org/xsd/settings-1.0.0.xsd">
+          <servers>
+              <server>
+                  <id>registry.hub.docker.com</id>
+                  <username>USERNAME</username>
+                  <password>PASSWORD</password>
+                  <configuration>
+                      <email>EMAIL_ADDRESS</email>
+                  </configuration>
+              </server>
+          </servers>
+      </settings>
+    * To build the docker image  
+    > mvn com.spotify:dockerfile-maven-plugin:build 
+    * To push to docker hub repository
+    > mvn dockerfile:push
 
 ## CI/CD
 ### Concourse
