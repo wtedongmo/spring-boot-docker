@@ -84,6 +84,42 @@
     * To push to docker hub repository
     > mvn dockerfile:push
 
+### Dockerizing Java Apps using Jib
+* Jib is an open-source Java tool maintained by Google for building Docker images of Java applications. It simplifies containerization since with it, we don't need to write a dockerfile.
+
+* And actually, we don't even have to have docker installed to create and publish the docker images ourselves.
+* You need to provide our DockerHub credentials to .m2/settings.xml as shown in spotify section
+* You can can use jib-maven-plugin, to containerize our application with a simple command:
+> mvn compile com.google.cloud.tools:jib-maven-plugin:2.5.0:build -Dimage=$IMAGE_PATH
+* where IMAGE_PATH is the target path in the container registry.
+
+#### Simplifying the Maven Jib Command
+* Also, we can shorten our initial command by configuring the plugin in our pom instead, like any other maven plugin.
+>  
+    <project>
+      ...
+      <build>
+          <plugins>
+              ...
+              <plugin>
+                  <groupId>com.google.cloud.tools</groupId>
+                  <artifactId>jib-maven-plugin</artifactId>
+                  <version>2.5.0</version>
+                  <configuration>
+                      <to>
+                          <image>${image.path}</image>
+                      </to>
+                  </configuration>
+              </plugin>
+              ...
+          </plugins>
+      </build>
+      ...
+    </project>
+* With this change, we can simplify our maven command:
+> mvn compile jib:build
+
+
 ## CI/CD
 ### Concourse
 * Concourse is a pipeline-based automation platform that can be used for CI and CD. 
@@ -105,3 +141,4 @@ For further reference, please consider the following sections:
 * https://www.linkedin.com/pulse/simple-guide-devops-cicd-jenkins-pipelines-docker-ramos-da-silva/
 * https://technology.riotgames.com/news/putting-jenkins-docker-container
 * https://www.jenkins.io/doc/book/installing/docker/
+* https://www.baeldung.com/jib-dockerizing

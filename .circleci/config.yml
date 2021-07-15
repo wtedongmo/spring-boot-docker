@@ -36,7 +36,7 @@ jobs:
   publish-docker:
     docker:
     - image: circleci/openjdk:8-jdk-browsers
-    working_directory: ~/repo
+    working_directory: ~/spring-boot-docker
     steps:
     - checkout
     - restore_cache:
@@ -48,6 +48,5 @@ jobs:
     - run: echo "<settingsSecurity><master>${maven_security_master}</master></settingsSecurity>" > ~/.m2/settings-security.xml
     - run:
         name: Publish Docker image with Jib
-        command: |
-          ./mvnw compile jib:build -B -DskipTests=true
+        command: mvn compile jib:build -DskipTests
 
