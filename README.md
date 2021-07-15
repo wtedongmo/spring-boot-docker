@@ -130,6 +130,13 @@
 * See Dockerfile to run jenkins in src/main/docker folder
 > docker run -p 8080:8080 --name=jenkins-master -d --env JAVA_OPTS="-Xmx8192m" --env JENKINS_OPTS=" --handlerCountMax=300" myjenkins
 
+### Circle CI
+* It is continuous integration and delivery platform that allows you to rapidly test and release software.
+* You can login with your GitHub account. 
+* Follow this [link](https://circleci.com/blog/dockerizing-java-apps-with-circleci-and-jib/) 
+to see step by step how to setup your CI/CD app by pushing docker image on docker hub.
+
+
 ## Reference Documentation
 For further reference, please consider the following sections:
 
@@ -142,3 +149,5 @@ For further reference, please consider the following sections:
 * https://technology.riotgames.com/news/putting-jenkins-docker-container
 * https://www.jenkins.io/doc/book/installing/docker/
 * https://www.baeldung.com/jib-dockerizing
+* https://faun.pub/setup-a-circleci-pipeline-for-a-containerized-spring-boot-app-93045fa060de
+* https://circleci.com/blog/dockerizing-java-apps-with-circleci-and-jib/
